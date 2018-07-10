@@ -15,7 +15,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import in.equipshare.es_cms.R;
 import in.equipshare.es_cms.activities.NeedEqActivity;
@@ -136,10 +140,14 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
 
         public void bind(EquipmentSelect equipmentSelect){
 
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String dateString = formatter.format(new Date(equipmentSelect.getStartDate()));
+            startDateView.setText(dateString);
+
             equipmentName.setText("Name : "+equipmentSelect.getEquipmentName());
             quantityView.setText("Quantity : "+equipmentSelect.getEquipmentQuantity());
             durationView.setText("Duration : "+equipmentSelect.getDurationYear()+" , "+equipmentSelect.getDurationMonth());
-            startDateView.setText("Start date : "+equipmentSelect.getStartDate());
+            startDateView.setText("Start date : "+dateString);
 
 
         }

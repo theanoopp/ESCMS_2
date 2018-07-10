@@ -8,12 +8,12 @@ public class EquipmentSelect implements Serializable {
     private String equipmentQuantity;
     private String durationMonth;
     private String durationYear;
-    private String startDate;
+    private long startDate;
 
     public EquipmentSelect() {
     }
 
-    public EquipmentSelect(String equipmentName, String equipmentQuantity, String durationMonth, String durationYear, String startDate) {
+    public EquipmentSelect(String equipmentName, String equipmentQuantity, String durationMonth, String durationYear, long startDate) {
         this.equipmentName = equipmentName;
         this.equipmentQuantity = equipmentQuantity;
         this.durationMonth = durationMonth;
@@ -53,11 +53,11 @@ public class EquipmentSelect implements Serializable {
         this.durationYear = durationYear;
     }
 
-    public String getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 }

@@ -31,19 +31,16 @@ import in.equipshare.es_cms.model.HaveEquipment;
  */
 public class HaveEqFragment extends DialogFragment {
 
-    private HaveEquipment haveEquipment;
-
 
     private Calendar myCalendar;
 
     private OnFragmentInteractionListener mListener;
 
-    private DatePickerDialog.OnDateSetListener dateDialog;
+    private DatePickerDialog.OnDateSetListener startDateDialog,endDateDialog;
 
     private long milli_req_date;
 
-
-    private String equipmentName,rate,date;
+    private String equipmentName,rate,startDate,endDate;
 
 
     //ui views
@@ -51,7 +48,7 @@ public class HaveEqFragment extends DialogFragment {
 
     private TextInputLayout rateInput;
 
-    private TextView dateView;
+    private TextView startDateView,endDateView;
 
     private Button addButton;
 
@@ -78,7 +75,7 @@ public class HaveEqFragment extends DialogFragment {
 
         addButton = v.findViewById(R.id.addButton);
 
-        dateDialog = new DatePickerDialog.OnDateSetListener() {
+        startDateDialog = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -86,17 +83,42 @@ public class HaveEqFragment extends DialogFragment {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                updateStartDateLabel();
             }
 
         };
 
-        dateView = v.findViewById(R.id.selectDate);
-        dateView.setOnClickListener(new View.OnClickListener() {
+        endDateDialog = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateEndDateLabel();
+            }
+
+        };
+
+        startDateView = v.findViewById(R.id.selectDate);
+        startDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                new DatePickerDialog(getContext(), dateDialog, myCalendar
+                new DatePickerDialog(getContext(), startDateDialog, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+        endDateView = v.findViewById(R.id.endDate);
+        endDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new DatePickerDialog(getContext(), endDateDialog, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -109,7 +131,7 @@ public class HaveEqFragment extends DialogFragment {
 
                 if(checkInput()){
 
-                    HaveEquipment equipment = new HaveEquipment(equipmentName,date,rate);
+                    HaveEquipment equipment = new HaveEquipment(equipmentName,startDate,endDate,rate);
                     onButtonPressed(equipment);
                     dismiss();
 
@@ -121,6 +143,17 @@ public class HaveEqFragment extends DialogFragment {
 
 
         return v;
+
+    }
+
+    private void updateEndDateLabel() {
+
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        Date date=myCalendar.getTime();
+        milli_req_date=date.getTime();
+        endDateView.setText(sdf.format(myCalendar.getTime()));
 
     }
 
@@ -165,7 +198,8 @@ public class HaveEqFragment extends DialogFragment {
         boolean cancel = true;
 
         equipmentName = equipmentSpinner.getSelectedItem().toString();
-        date = dateView.getText().toString();
+        startDate = startDateView.getText().toString();
+        endDate = endDateView.getText().toString();
         rate = rateInput.getEditText().getText().toString();
 
         if(equipmentName.equals("Select Equipment")){
@@ -173,7 +207,7 @@ public class HaveEqFragment extends DialogFragment {
             Toast.makeText(getContext(),"Select equipment first", Toast.LENGTH_SHORT).show();
             cancel = false;
 
-        }else if(date.equals("Select Date")){
+        }else if(startDate.equals("Select Date")){
 
             Toast.makeText(getContext(),"Select date", Toast.LENGTH_SHORT).show();
             cancel = false;
@@ -194,12 +228,13 @@ public class HaveEqFragment extends DialogFragment {
 
     }
 
-    private void updateLabel() {
+    private void updateStartDateLabel() {
+
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         Date date=myCalendar.getTime();
         milli_req_date=date.getTime();
-        dateView.setText(sdf.format(myCalendar.getTime()));
+        startDateView.setText(sdf.format(myCalendar.getTime()));
 
     }
 

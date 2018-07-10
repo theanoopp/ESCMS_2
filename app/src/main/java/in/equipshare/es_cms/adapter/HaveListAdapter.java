@@ -94,7 +94,7 @@ public class HaveListAdapter extends RecyclerView.Adapter<HaveListAdapter.MyView
 
             equipmentName.setText("Name : "+equipmentSelect.getEquipmentName());
             rateView.setText("Quantity : "+equipmentSelect.getRate());
-            startDateView.setText("Start date : "+equipmentSelect.getDate());
+            startDateView.setText("Start date : "+equipmentSelect.getStartDate());
 
 
         }

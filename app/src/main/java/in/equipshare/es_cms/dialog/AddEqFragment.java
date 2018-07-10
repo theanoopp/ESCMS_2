@@ -48,6 +48,7 @@ public class AddEqFragment extends DialogFragment {
 
     private String equipmentName,equipmentQuantity,durationMonth,durationYear,startDate;
 
+
     private Spinner equipmentSpinner,quantitySpinner,monthSpinner,yearSpinner;
 
 
@@ -119,7 +120,7 @@ public class AddEqFragment extends DialogFragment {
 
                 if(checkInput()){
 
-                    EquipmentSelect equipment = new EquipmentSelect(equipmentName,equipmentQuantity,durationMonth,durationYear,startDate);
+                    EquipmentSelect equipment = new EquipmentSelect(equipmentName,equipmentQuantity,durationMonth,durationYear,milli_req_date);
                     onButtonPressed(equipment);
                     dismiss();
 
@@ -165,10 +166,13 @@ public class AddEqFragment extends DialogFragment {
     }
 
     private void updateLabel() {
+
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         Date date=myCalendar.getTime();
-        milli_req_date=date.getTime();
+
+        milli_req_date = date.getTime();
+
         dateView.setText(sdf.format(myCalendar.getTime()));
 
     }
