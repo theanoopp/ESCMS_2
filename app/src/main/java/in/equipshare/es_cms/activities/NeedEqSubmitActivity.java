@@ -55,7 +55,7 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
     private String location = "default";
 
     private String projectType;
-    private String durationMonth,duratonYear;
+    private String durationMonth,durationYear;
     private String startDate;
     private String devAuthority;
     private String description;
@@ -113,12 +113,12 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
 
                 projectType = projectTypeSpinner.getSelectedItem().toString();
                 durationMonth = monthDuration.getSelectedItem().toString();
-                duratonYear = yearDuration.getSelectedItem().toString();
+                durationYear = yearDuration.getSelectedItem().toString();
                 startDate = dateView.getText().toString();
                 devAuthority = devInput.getEditText().getText().toString();
                 description = descriptionInput.getEditText().getText().toString();
 
-                RFQ sendData = new RFQ(location,projectType,durationMonth,duratonYear,startDate,devAuthority,description,equipList);
+                RFQ sendData = new RFQ(location,projectType,durationMonth,durationYear,startDate,devAuthority,description,equipList);
 
                 sendRFQ(sendData);
 
@@ -135,7 +135,6 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
 
         APIService mAPIService = ApiUtils.getAPIService();
 

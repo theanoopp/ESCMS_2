@@ -8,7 +8,7 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://2cf2dd0d.ngrok.io/";
+    public static final String BASE_URL = "http://3c26e8fd.ngrok.io/";
 
     public static APIService getAPIService() {
 
