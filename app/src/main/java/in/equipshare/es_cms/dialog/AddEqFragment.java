@@ -69,7 +69,6 @@ public class AddEqFragment extends DialogFragment {
         if (getArguments() != null) {
             equipmentSelect = (EquipmentSelect) getArguments().getSerializable("model");
 
-
         }
     }
 

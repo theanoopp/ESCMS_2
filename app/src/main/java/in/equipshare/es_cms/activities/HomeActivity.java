@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(HomeActivity.this,TempActivity.class));
+                startActivity(new Intent(HomeActivity.this,HaveEquipmentActivity.class));
 
             }
         });
@@ -106,8 +106,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_quotes) {
+
+            startActivity(new Intent(HomeActivity.this,QuotationRequestsActivity.class));
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

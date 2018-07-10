@@ -29,7 +29,6 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
     Context context;
     AdapterCallback mCallback;
 
-
     public EquipmentListAdapter(Context context, List<EquipmentSelect> equipList,AdapterCallback callback) {
 
         this.context = context;

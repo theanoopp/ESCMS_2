@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAPzTe94hZ1YYLqHOxglRdUFdboakDKkCM" />
+
         <activity android:name=".MainActivity" />
         <activity android:name=".activities.SplashScreen">
             <intent-filter>
@@ -27,9 +31,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.MobileAuthActivity" />
         <activity android:name=".activities.NeedEqActivity" />
-        <activity
-            android:name=".activities.TempActivity" />
-        <activity android:name=".activities.NeedEqSubmitActivity"></activity>
+        <activity android:name=".activities.TempActivity" />
+        <activity android:name=".activities.NeedEqSubmitActivity" />
+        <activity android:name=".activities.HaveEquipmentActivity" />
+        <activity android:name=".activities.QuotationRequestsActivity" />
+        <activity android:name=".activities.ViewQuotationActivity"></activity>
     </application>
 
 </manifest>
