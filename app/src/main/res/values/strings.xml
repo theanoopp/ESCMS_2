@@ -125,6 +125,20 @@
         <item>11 Months</item>
     </string-array>
 
+    <string-array name="payment_terms">
+        <item>Advance</item>
+        <item>15 days</item>
+        <item>30 days</item>
+        <item>45 days</item>
+    </string-array>
+
+    <string-array name="security_deposit">
+        <item>2</item>
+        <item>1</item>
+        <item>BG</item>
+        <item>LC</item>
+    </string-array>
+
     <string name="title_activity_temp">TempActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->

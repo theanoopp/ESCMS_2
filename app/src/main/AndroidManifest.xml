@@ -30,12 +30,18 @@
             android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.MobileAuthActivity" />
-        <activity android:name=".activities.NeedEqActivity" />
+        <activity
+            android:name=".activities.NeedEqActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.TempActivity" />
-        <activity android:name=".activities.NeedEqSubmitActivity" />
+        <activity
+            android:name=".activities.NeedEqSubmitActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.HaveEquipmentActivity" />
         <activity android:name=".activities.QuotationRequestsActivity" />
-        <activity android:name=".activities.ViewQuotationActivity"></activity>
+        <activity android:name=".activities.ViewQuotationActivity" />
+        <activity android:name=".activities.ViewRfqDetailsActivity" />
+        <activity android:name=".activities.HaveEqSubmitActivity"></activity>
     </application>
 
 </manifest>

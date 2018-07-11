@@ -1,20 +1,24 @@
 package in.equipshare.es_cms.model;
 
-public class HaveEquipment {
+import java.io.Serializable;
+
+public class HaveEquipment implements Serializable {
 
     private String equipmentName;
     private String startDate;
     private String endDate;
     private String rate;
+    private String brief;
 
     public HaveEquipment() {
     }
 
-    public HaveEquipment(String equipmentName, String startDate, String endDate, String rate) {
+    public HaveEquipment(String equipmentName, String startDate, String endDate, String rate, String brief) {
         this.equipmentName = equipmentName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.rate = rate;
+        this.brief = brief;
     }
 
     public String getEquipmentName() {
@@ -47,5 +51,13 @@ public class HaveEquipment {
 
     public void setRate(String rate) {
         this.rate = rate;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 }

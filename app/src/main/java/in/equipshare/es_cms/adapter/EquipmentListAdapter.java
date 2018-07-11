@@ -2,38 +2,29 @@ package in.equipshare.es_cms.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.activities.NeedEqActivity;
-import in.equipshare.es_cms.activities.SplashScreen;
-import in.equipshare.es_cms.dialog.AddEqFragment;
-import in.equipshare.es_cms.model.EquipmentSelect;
+import in.equipshare.es_cms.model.NeedEquipment;
 
 public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdapter.MyViewHolder> {
 
-    List<EquipmentSelect> equipList;
+    List<NeedEquipment> equipList;
     Context context;
     AdapterCallback mCallback;
 
-    public EquipmentListAdapter(Context context, List<EquipmentSelect> equipList,AdapterCallback callback) {
+    public EquipmentListAdapter(Context context, List<NeedEquipment> equipList,AdapterCallback callback) {
 
         this.context = context;
         this.equipList = equipList;
@@ -127,7 +118,7 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
-            equipmentName = itemView.findViewById(R.id.equipmentName);
+            equipmentName = itemView.findViewById(R.id.rfqId);
             quantityView = itemView.findViewById(R.id.quantityView);
             durationView = itemView.findViewById(R.id.durationView);
             startDateView = itemView.findViewById(R.id.startDateView);
@@ -138,7 +129,7 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
 
         }
 
-        public void bind(EquipmentSelect equipmentSelect){
+        public void bind(NeedEquipment equipmentSelect){
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = formatter.format(new Date(equipmentSelect.getStartDate()));

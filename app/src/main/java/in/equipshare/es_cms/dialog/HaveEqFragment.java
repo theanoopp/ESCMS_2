@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.model.EquipmentSelect;
 import in.equipshare.es_cms.model.HaveEquipment;
 
 /**
@@ -48,6 +47,8 @@ public class HaveEqFragment extends DialogFragment {
 
     private TextInputLayout rateInput;
 
+    private TextInputLayout briefInput;
+
     private TextView startDateView,endDateView;
 
     private Button addButton;
@@ -65,6 +66,8 @@ public class HaveEqFragment extends DialogFragment {
 
 
         myCalendar = Calendar.getInstance();
+
+        briefInput = v.findViewById(R.id.briefInput);
 
         addButton = v.findViewById(R.id.addButton);
 
@@ -131,7 +134,8 @@ public class HaveEqFragment extends DialogFragment {
 
                 if(checkInput()){
 
-                    HaveEquipment equipment = new HaveEquipment(equipmentName,startDate,endDate,rate);
+                    String brief = briefInput.getEditText().getText().toString();
+                    HaveEquipment equipment = new HaveEquipment(equipmentName,startDate,endDate,rate,brief);
                     onButtonPressed(equipment);
                     dismiss();
 

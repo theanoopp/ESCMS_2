@@ -2,22 +2,25 @@ package in.equipshare.es_cms.model;
 
 import java.io.Serializable;
 
-public class EquipmentSelect implements Serializable {
+public class NeedEquipment implements Serializable {
+
 
     private String equipmentName;
     private String equipmentQuantity;
     private String durationMonth;
     private String durationYear;
+    private String brief;
     private long startDate;
 
-    public EquipmentSelect() {
+    public NeedEquipment() {
     }
 
-    public EquipmentSelect(String equipmentName, String equipmentQuantity, String durationMonth, String durationYear, long startDate) {
+    public NeedEquipment(String equipmentName, String equipmentQuantity, String durationMonth, String durationYear, String brief, long startDate) {
         this.equipmentName = equipmentName;
         this.equipmentQuantity = equipmentQuantity;
         this.durationMonth = durationMonth;
         this.durationYear = durationYear;
+        this.brief = brief;
         this.startDate = startDate;
     }
 
@@ -51,6 +54,14 @@ public class EquipmentSelect implements Serializable {
 
     public void setDurationYear(String durationYear) {
         this.durationYear = durationYear;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 
     public long getStartDate() {

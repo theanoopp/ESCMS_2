@@ -1,17 +1,17 @@
 package in.equipshare.es_cms.model;
 
-public class QuotationRequests {
+public class RFQSummary {
 
-    String companyName;
-    String equipmentName;
-    String location;
+    private String companyName;
+    private String rfqId;
+    private String location;
 
-    public QuotationRequests() {
+    public RFQSummary() {
     }
 
-    public QuotationRequests(String companyName, String equipmentName, String location) {
+    public RFQSummary(String companyName, String rfqId, String location) {
         this.companyName = companyName;
-        this.equipmentName = equipmentName;
+        this.rfqId = rfqId;
         this.location = location;
     }
 
@@ -23,12 +23,12 @@ public class QuotationRequests {
         this.companyName = companyName;
     }
 
-    public String getEquipmentName() {
-        return equipmentName;
+    public String getRfqId() {
+        return rfqId;
     }
 
-    public void setEquipmentName(String equipmentName) {
-        this.equipmentName = equipmentName;
+    public void setRfqId(String rfqId) {
+        this.rfqId = rfqId;
     }
 
     public String getLocation() {

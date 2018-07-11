@@ -2,9 +2,10 @@ package in.equipshare.es_cms.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RFQ {
+public class RFQ implements Serializable{
 
 
     @SerializedName("location")
@@ -29,13 +30,13 @@ public class RFQ {
     private String projectDescription;
 
     @SerializedName("equipmentList")
-    private ArrayList<EquipmentSelect> equipmentList;
+    private ArrayList<NeedEquipment> equipmentList;
 
     public RFQ() {
     }
 
 
-    public RFQ(String location, String projectType, String durationMonth, String durationYear, String startDate, String devAuthority, String projectDescription, ArrayList<EquipmentSelect> equipmentList) {
+    public RFQ(String location, String projectType, String durationMonth, String durationYear, String startDate, String devAuthority, String projectDescription, ArrayList<NeedEquipment> equipmentList) {
         this.location = location;
         this.projectType = projectType;
         this.durationMonth = durationMonth;
@@ -103,11 +104,11 @@ public class RFQ {
         this.projectDescription = projectDescription;
     }
 
-    public ArrayList<EquipmentSelect> getEquipmentList() {
+    public ArrayList<NeedEquipment> getEquipmentList() {
         return equipmentList;
     }
 
-    public void setEquipmentList(ArrayList<EquipmentSelect> equipmentList) {
+    public void setEquipmentList(ArrayList<NeedEquipment> equipmentList) {
         this.equipmentList = equipmentList;
     }
 }

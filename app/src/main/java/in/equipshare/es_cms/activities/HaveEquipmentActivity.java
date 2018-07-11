@@ -1,10 +1,12 @@
 package in.equipshare.es_cms.activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,11 +15,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.adapter.EquipmentListAdapter;
 import in.equipshare.es_cms.adapter.HaveListAdapter;
-import in.equipshare.es_cms.dialog.AddEqFragment;
 import in.equipshare.es_cms.dialog.HaveEqFragment;
-import in.equipshare.es_cms.model.EquipmentSelect;
 import in.equipshare.es_cms.model.HaveEquipment;
 
 public class HaveEquipmentActivity extends AppCompatActivity implements HaveEqFragment.OnFragmentInteractionListener,HaveListAdapter.AdapterCallback {
@@ -39,6 +38,8 @@ public class HaveEquipmentActivity extends AppCompatActivity implements HaveEqFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_have_equipment);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         nextButton = findViewById(R.id.nextButton);
         addButton = findViewById(R.id.addFab);
 
@@ -46,7 +47,6 @@ public class HaveEquipmentActivity extends AppCompatActivity implements HaveEqFr
 
         recyclerView = findViewById(R.id.equipmentListView);
 
-        recyclerView = findViewById(R.id.equipmentListView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -61,7 +61,7 @@ public class HaveEquipmentActivity extends AppCompatActivity implements HaveEqFr
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(HaveEquipmentActivity.this, "todo next screen", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HaveEquipmentActivity.this,HaveEqSubmitActivity.class));
 
             }
         });
@@ -100,5 +100,20 @@ public class HaveEquipmentActivity extends AppCompatActivity implements HaveEqFr
         equipList.remove(position);
         haveListAdapter.notifyDataSetChanged();
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+        }
+
+        return true;
     }
 }

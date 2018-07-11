@@ -89,14 +89,13 @@
         app:layout_constraintTop_toTopOf="@+id/yearSpinner" />
 
 
-
     <TextView
         android:id="@+id/startDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Start Date :"
+        android:text="Project start date :"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/durationView2" />
@@ -161,7 +160,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/mybutton"
-        android:text="Submit"
+        android:text="Next"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

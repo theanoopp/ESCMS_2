@@ -1,22 +1,17 @@
 package in.equipshare.es_cms.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.model.EquipmentSelect;
 import in.equipshare.es_cms.model.HaveEquipment;
 
 public class HaveListAdapter extends RecyclerView.Adapter<HaveListAdapter.MyViewHolder> {
@@ -82,7 +77,7 @@ public class HaveListAdapter extends RecyclerView.Adapter<HaveListAdapter.MyView
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
-            equipmentName = itemView.findViewById(R.id.equipmentName);
+            equipmentName = itemView.findViewById(R.id.rfqId);
             rateView = itemView.findViewById(R.id.rateView);
             startDateView = itemView.findViewById(R.id.startDateView);
             deleteButton = itemView.findViewById(R.id.deleteButton2);

@@ -36,7 +36,7 @@
             app:srcCompat="@drawable/ic_delete" />
 
         <TextView
-            android:id="@+id/equipmentName"
+            android:id="@+id/rfqId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -59,7 +59,7 @@
             android:textSize="22sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/equipmentName" />
+            app:layout_constraintTop_toBottomOf="@+id/rfqId" />
 
         <TextView
             android:id="@+id/startDateView"

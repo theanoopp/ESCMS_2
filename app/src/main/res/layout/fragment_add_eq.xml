@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".dialog.AddEqFragment">
+    tools:context=".dialog.NeedEqFragment">
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/briefInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/rfqId">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Brief" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/durationView"
@@ -23,6 +40,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,35 +56,35 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:entries="@array/eq_list"
-        app:layout_constraintBottom_toBottomOf="@+id/equipmentName"
+        app:layout_constraintBottom_toBottomOf="@+id/rfqId"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintStart_toEndOf="@+id/equipmentName"
-        app:layout_constraintTop_toTopOf="@+id/equipmentName" />
+        app:layout_constraintStart_toEndOf="@+id/rfqId"
+        app:layout_constraintTop_toTopOf="@+id/rfqId" />
 
     <TextView
         android:id="@+id/quantityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Quantity :"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/equipmentName" />
+        app:layout_constraintTop_toBottomOf="@+id/briefInput" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="0dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="0dp" />
 
     <Spinner
         android:id="@+id/quantitySpinner"
@@ -108,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Start Date :"
+        android:text="Equipment needed from : "
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toBottomOf="@+id/durationView" />
@@ -118,8 +137,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="Select Date"
         android:textColor="@android:color/black"
@@ -130,7 +147,7 @@
         app:layout_constraintTop_toTopOf="@+id/startDateView" />
 
     <TextView
-        android:id="@+id/equipmentName"
+        android:id="@+id/rfqId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

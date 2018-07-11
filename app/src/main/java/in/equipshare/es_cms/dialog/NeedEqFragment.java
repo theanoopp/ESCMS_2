@@ -4,9 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +22,17 @@ import java.util.Date;
 import java.util.Locale;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.model.EquipmentSelect;
+import in.equipshare.es_cms.model.NeedEquipment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AddEqFragment.OnFragmentInteractionListener} interface
+ * {@link NeedEqFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class AddEqFragment extends DialogFragment {
+public class NeedEqFragment extends DialogFragment {
 
-    private EquipmentSelect equipmentSelect;
+    private NeedEquipment equipmentSelect;
 
     private TextView dateView;
 
@@ -51,13 +51,15 @@ public class AddEqFragment extends DialogFragment {
 
     private Spinner equipmentSpinner,quantitySpinner,monthSpinner,yearSpinner;
 
+    private TextInputLayout briefInput;
 
-    public AddEqFragment() {
+
+    public NeedEqFragment() {
         // Required empty public constructor
     }
 
-    public static AddEqFragment newInstance(EquipmentSelect equipmentSelect) {
-        AddEqFragment fragment = new AddEqFragment();
+    public static NeedEqFragment newInstance(NeedEquipment equipmentSelect) {
+        NeedEqFragment fragment = new NeedEqFragment();
         Bundle args = new Bundle();
         args.putSerializable("model",equipmentSelect);
         fragment.setArguments(args);
@@ -68,7 +70,7 @@ public class AddEqFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            equipmentSelect = (EquipmentSelect) getArguments().getSerializable("model");
+            equipmentSelect = (NeedEquipment) getArguments().getSerializable("model");
 
         }
     }
@@ -88,6 +90,7 @@ public class AddEqFragment extends DialogFragment {
         monthSpinner = v.findViewById(R.id.monthSpinner);
         yearSpinner = v.findViewById(R.id.yearSpinner);
 
+        briefInput = v.findViewById(R.id.briefInput);
 
         date = new DatePickerDialog.OnDateSetListener() {
 
@@ -120,7 +123,9 @@ public class AddEqFragment extends DialogFragment {
 
                 if(checkInput()){
 
-                    EquipmentSelect equipment = new EquipmentSelect(equipmentName,equipmentQuantity,durationMonth,durationYear,milli_req_date);
+                    String brief = briefInput.getEditText().getText().toString();
+
+                    NeedEquipment equipment = new NeedEquipment(equipmentName,equipmentQuantity,durationMonth,durationYear,brief,milli_req_date);
                     onButtonPressed(equipment);
                     dismiss();
 
@@ -178,7 +183,7 @@ public class AddEqFragment extends DialogFragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(EquipmentSelect equipment) {
+    public void onButtonPressed(NeedEquipment equipment) {
         if (mListener != null) {
             mListener.onFragmentInteraction(equipment);
         }
@@ -215,6 +220,6 @@ public class AddEqFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(EquipmentSelect equipment);
+        void onFragmentInteraction(NeedEquipment equipment);
     }
 }

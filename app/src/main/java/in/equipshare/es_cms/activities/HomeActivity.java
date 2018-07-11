@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(HomeActivity.this,NeedEqActivity.class));
+                startActivity(new Intent(HomeActivity.this,NeedEqSubmitActivity.class));
 
 
             }

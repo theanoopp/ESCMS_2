@@ -8,25 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.model.HaveEquipment;
-import in.equipshare.es_cms.model.QuotationRequests;
+import in.equipshare.es_cms.model.RFQSummary;
 
 public class QuotationRequestsAdapter extends RecyclerView.Adapter<QuotationRequestsAdapter.MyViewHolder> {
 
     Context context;
-    List<QuotationRequests> quotationList;
+    List<RFQSummary> rfqSummaries;
     AdapterCallback mCallback;
 
 
 
-    public QuotationRequestsAdapter(Context context, List<QuotationRequests> equipList,AdapterCallback callback) {
+    public QuotationRequestsAdapter(Context context, List<RFQSummary> equipList,AdapterCallback callback) {
 
         this.context = context;
-        this.quotationList = equipList;
+        this.rfqSummaries = equipList;
         this.mCallback = callback;
 
     }
@@ -43,9 +41,17 @@ public class QuotationRequestsAdapter extends RecyclerView.Adapter<QuotationRequ
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
-        holder.bind(quotationList.get(position));
+        holder.bind(rfqSummaries.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mCallback.onMethodCallback(position);
+
+            }
+        });
 
     }
 
@@ -53,7 +59,7 @@ public class QuotationRequestsAdapter extends RecyclerView.Adapter<QuotationRequ
 
     @Override
     public int getItemCount() {
-        return quotationList.size();
+        return rfqSummaries.size();
     }
 
     public interface AdapterCallback {
@@ -62,24 +68,24 @@ public class QuotationRequestsAdapter extends RecyclerView.Adapter<QuotationRequ
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView equipmentName;
+        TextView rfqId;
         TextView companyName;
         TextView location;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
-            equipmentName = itemView.findViewById(R.id.equipmentName);
+            rfqId = itemView.findViewById(R.id.rfqId);
             companyName = itemView.findViewById(R.id.companyName);
             location = itemView.findViewById(R.id.location);
 
         }
 
-        public void bind(QuotationRequests quotation){
+        public void bind(RFQSummary quotation){
 
-            equipmentName.setText("Equipment Name : "+quotation.getEquipmentName());
-            companyName.setText("Company Name : "+quotation.getCompanyName());
-            location.setText("Start date : "+quotation.getLocation());
+            rfqId.setText("company Name : "+quotation.getCompanyName());
+            companyName.setText("RFQ Id : "+quotation.getRfqId());
+            location.setText("Location : "+quotation.getLocation());
 
         }
 

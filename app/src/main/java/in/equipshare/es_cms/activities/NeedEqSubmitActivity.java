@@ -1,16 +1,17 @@
 package in.equipshare.es_cms.activities;
 
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,21 +22,19 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import in.equipshare.es_cms.R;
-import in.equipshare.es_cms.model.EquipmentSelect;
+import in.equipshare.es_cms.model.NeedEquipment;
 import in.equipshare.es_cms.model.RFQ;
-import in.equipshare.es_cms.model.Result;
-import in.equipshare.es_cms.rest.APIService;
-import in.equipshare.es_cms.utils.ApiUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NeedEqSubmitActivity extends AppCompatActivity {
 
-    private ArrayList<EquipmentSelect> equipList;
+    private ArrayList<NeedEquipment> equipList;
 
     private Button button;
 
@@ -49,8 +48,10 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
     private TextInputLayout devInput;
     private TextInputLayout descriptionInput;
 
-    private ProgressDialog progressDialog;
+    private DatePickerDialog.OnDateSetListener date;
+    private Calendar myCalendar;
 
+    private long milli_req_date;
 
     private String location = "default";
 
@@ -65,6 +66,8 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_need_eq_submit);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         projectTypeSpinner = findViewById(R.id.projectTypeSpinner);
         monthDuration = findViewById(R.id.monthSpinner);
         yearDuration = findViewById(R.id.yearSpinner);
@@ -72,7 +75,24 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
         devInput = findViewById(R.id.devAuthInput);
         descriptionInput = findViewById(R.id.projectDescriptionInput);
 
-        equipList = (ArrayList<EquipmentSelect>) getIntent().getSerializableExtra("list");
+        myCalendar = Calendar.getInstance();
+
+        date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        //equipList = (ArrayList<EquipmentSelect>) getIntent().getSerializableExtra("list");
+
+        equipList = new ArrayList<>();
 
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete);
@@ -88,12 +108,8 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
 
                 location = ""+place.getAddress();
-
-                Log.i("MY_E", "Address "+place.getAddress());
-
 
             }
 
@@ -111,72 +127,102 @@ public class NeedEqSubmitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                projectType = projectTypeSpinner.getSelectedItem().toString();
-                durationMonth = monthDuration.getSelectedItem().toString();
-                durationYear = yearDuration.getSelectedItem().toString();
-                startDate = dateView.getText().toString();
-                devAuthority = devInput.getEditText().getText().toString();
-                description = descriptionInput.getEditText().getText().toString();
 
-                RFQ sendData = new RFQ(location,projectType,durationMonth,durationYear,startDate,devAuthority,description,equipList);
+                if(checkInput()){
 
-                sendRFQ(sendData);
+                    RFQ sendData = new RFQ(location,projectType,durationMonth,durationYear,startDate,devAuthority,description,equipList);
 
-            }
-        });
-
-
-
-    }
-
-    private void sendRFQ(RFQ rfq) {
-
-        progressDialog=new ProgressDialog(NeedEqSubmitActivity.this);
-        progressDialog.setMessage("Please wait..");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        APIService mAPIService = ApiUtils.getAPIService();
-
-        mAPIService.rfqSet(rfq).enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-
-                if(response.isSuccessful()){
-
-                    new AlertDialog.Builder(NeedEqSubmitActivity.this)
-                            .setMessage("Quotation list submitted")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-
-
-                                }
-                            })
-                            .show();
-                    progressDialog.cancel();
-
-                }else {
-
-                    Toast.makeText(NeedEqSubmitActivity.this,response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(NeedEqSubmitActivity.this,NeedEqActivity.class);
+                    intent.putExtra("model",sendData);
+                    startActivity(intent);
 
                 }
 
-
             }
+        });
 
+        dateView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onClick(View view) {
 
-                Log.d("MY_E",t.getLocalizedMessage());
+                new DatePickerDialog(NeedEqSubmitActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
             }
         });
 
 
+
     }
+
+    private boolean checkInput() {
+
+        boolean cancel = true;
+
+        projectType = projectTypeSpinner.getSelectedItem().toString();
+        durationMonth = monthDuration.getSelectedItem().toString();
+        durationYear = yearDuration.getSelectedItem().toString();
+        startDate = dateView.getText().toString();
+
+        devAuthority = devInput.getEditText().getText().toString();
+        description = descriptionInput.getEditText().getText().toString();
+
+
+        devInput.setError(null);
+        descriptionInput.setError(null);
+
+
+        if(location.equals("default")) {
+
+            Toast.makeText(NeedEqSubmitActivity.this,"Please select location", Toast.LENGTH_SHORT).show();
+            cancel = false;
+
+        }else if(startDate.equals("Select Date")){
+
+            Toast.makeText(NeedEqSubmitActivity.this,"Select date", Toast.LENGTH_SHORT).show();
+            cancel = false;
+
+        }else if (TextUtils.isEmpty(devAuthority)) {
+
+            devInput.setError("Enter valid value");
+            cancel = false;
+
+        }else if (TextUtils.isEmpty(description)) {
+
+            descriptionInput.setError("Enter valid value");
+            cancel = false;
+
+        }
+
+        return cancel;
+
+    }
+
+    private void updateLabel() {
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        Date date=myCalendar.getTime();
+
+        milli_req_date = date.getTime();
+
+        dateView.setText(sdf.format(myCalendar.getTime()));
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+        }
+
+        return true;
+    }
+
 }
